@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.gro02.walk_slow",
+  "code": "GRO-02",
+  "type": "coach_demo",
+  "title": "Đi bộ chậm một mình",
+  "group": "gross_motor",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.ball", "object.block"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "ball",
+    "mascotCue": "walk",
+    "parentSteps": [
+      { "label": "\"Chậm, 1-2, 1-2\"", "detail": "Vẽ vạch xuất phát và vạch đích cách nhau 2–3 m; làm mẫu đi chậm từ vạch xuất phát đến vạch đích, 2–3 lần." },
+      { "label": "Đếm nhịp \"1 2 1 2\"", "detail": "Yêu cầu con đi bộ chậm cùng ba mẹ; nếu chưa tự được thì cầm tay dẫn và đếm nhịp." },
+      { "label": "\"Tốt lắm! Chậm lại\"", "detail": "Giảm hỗ trợ, chỉ còn đếm nhịp cho con." }
+    ],
+    "showStepTimerMs": 10000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 10000,
+    "afterCueTimeoutMs": 30000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Chậm, 1-2, 1-2",
+    "praise": "Tốt lắm! Chậm lại nào.",
+    "bridge": "Vẽ vạch xuất phát và vạch đích cách nhau 2–3 m, đếm nhịp \"1 2 1 2\" cho bé đi."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình \"đi chậm\" rồi nói \"{instruction}\" trước khi đi." },
+      "3": { "guide": "Dán vạch băng dính cách nhau 2–3 m, đặt {label} ở vạch đích để bé đi chậm tới lấy; ba mẹ đếm nhịp \"1 2 1 2\"." },
+      "4": { "guide": "Đi chậm cùng ba mẹ ngoài trời, nhắc \"Chậm, 1-2, 1-2\" khi bé đi nhanh quá." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "praise", "params.parentSteps"]
+  }
+}

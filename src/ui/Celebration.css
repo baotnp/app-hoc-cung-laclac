@@ -1,0 +1,60 @@
+/* Hiệu ứng ăn mừng — phủ toàn màn, KHÔNG nhận chạm (bé vẫn chạm được hình). */
+
+.celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  overflow: hidden;
+}
+
+/* Gốc toạ độ của hạt là giữa màn: mọi hạt bung ra từ đây. */
+.celebration__center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+}
+
+.celebration__particle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Kích thước, màu do component đặt; trần 28 px để không che hình. */
+  max-width: 28px;
+  max-height: 28px;
+  margin-left: -14px;
+  margin-top: -14px;
+  will-change: transform, opacity;
+}
+
+.celebration__particle--dot {
+  border-radius: 50%;
+}
+
+.celebration__particle--star {
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+/* reduceMotion: một quầng sáng ấm hiện rồi mờ, không có hạt bay. */
+.celebration__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--sun, #ffd35c) 0%,
+    rgba(255, 211, 92, 0) 62%
+  );
+}

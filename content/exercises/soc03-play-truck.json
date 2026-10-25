@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.soc03.play_truck",
+  "code": "SOC-03",
+  "type": "coach_demo",
+  "title": "Cùng chơi xe tải với ba mẹ",
+  "group": "social",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "vehicle",
+    "keys": ["vehicle.truck", "vehicle.car"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge", "sound"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "truck",
+    "mascotCue": "clap",
+    "parentSteps": [
+      { "label": "\"Nhìn nè Lạc, Xe tải!\"", "detail": "Ngồi sàn cách con 0,6–1 m, đẩy xe tải về phía con; thùng xe có thể chở thức ăn làm phần thưởng." },
+      { "label": "\"Xe tải, bíp bíp\"", "detail": "Khuyến khích con đẩy xe trở lại, lặp lại câu này mỗi lần đẩy xe." },
+      { "label": "Để con chủ động đẩy xe đến chơi", "detail": "Con tự mang xe tải đến rủ ba mẹ chơi cùng." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Nhìn nè, xe tải!",
+    "praise": "Xe tải, bíp bíp! Hoan hô con!",
+    "bridge": "Ngồi cách bé khoảng 1 mét, đẩy xe tải qua lại và nói \"Xe tải, bíp bíp\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình {label} và nói \"{instruction}\" trước khi chơi." },
+      "3": { "guide": "Ngồi sàn cách bé 0,6–1 m, đẩy {label} đồ chơi qua lại, mỗi lần đẩy nói \"Xe tải, bíp bíp\"." },
+      "4": { "guide": "Để bé tự mang {label} đến rủ ba mẹ hoặc anh chị cùng chơi." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

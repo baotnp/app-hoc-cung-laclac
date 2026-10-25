@@ -1,0 +1,32 @@
+/* Khung màn của bé — docs/04 §1–2. Nền trơn, không cuộn, không chọn chữ. */
+
+.child-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + var(--space-2))
+    calc(env(safe-area-inset-right, 0px) + var(--stage-pad, 4vw))
+    calc(env(safe-area-inset-bottom, 0px) + var(--space-2))
+    calc(env(safe-area-inset-left, 0px) + var(--stage-pad, 4vw));
+  touch-action: none;
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.child-stage[data-mode='calm'] {
+  background: var(--bg);
+  /* Chuyển yên tĩnh ↔ rộn ràng đi qua nền trung tính, 300 ms (docs/03 §6). */
+  transition: background-color var(--dur-fade, 300ms) var(--ease-calm, ease);
+}
+
+.child-stage[data-mode='festive'] {
+  background: var(--bg-a, #fff3d9);
+  transition: background-color var(--dur-fade, 300ms) var(--ease-calm, ease);
+}

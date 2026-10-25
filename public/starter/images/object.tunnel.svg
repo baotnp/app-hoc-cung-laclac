@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+<rect width="400" height="400" fill="#f2f0ea"/>
+<ellipse cx="200" cy="348" rx="120" ry="16" fill="#00000014"/>
+
+<path d="M70 300 A130 130 0 0 1 330 300 Z" fill="#6ec5e9"/>
+<path d="M104 300 A96 96 0 0 1 296 300 Z" fill="#7fd1b9"/>
+<path d="M138 300 A62 62 0 0 1 262 300 Z" fill="#b79cf0"/>
+<path d="M166 300 A34 34 0 0 1 234 300 Z" fill="#3a352e" opacity=".78"/>
+<rect x="60" y="298" width="280" height="14" rx="7" fill="#d7b183"/>
+</svg>

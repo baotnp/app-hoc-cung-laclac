@@ -1,0 +1,32 @@
+/* Bảng sao — docs/03 §1 (dải cao ~10% màn S07), docs/04 §2. Không chữ, không số. */
+
+.starboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.starboard__star {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  fill: var(--star-off, #d9d3c6);
+  /* Chỉ đổi màu mềm, không nhấp nháy. */
+  transition: fill var(--dur-fade, 300ms) var(--ease-calm, ease);
+}
+
+.starboard__star[data-on='true'] {
+  fill: var(--star-on, #ddb65a);
+}
+
+@media (min-width: 900px) {
+  .starboard__star {
+    width: 56px;
+    height: 56px;
+  }
+}

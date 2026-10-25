@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.lan01.say_animal_name",
+  "code": "LAN-01",
+  "type": "say_name",
+  "title": "Gọi tên các con vật nuôi bằng từ đơn",
+  "group": "language_expressive",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "pet_animal",
+    "keys": ["animal.dog", "animal.cat", "animal.cow", "animal.chicken"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": { "modelRepeats": 3, "promptStyle": "what_is_this", "imageAreaRatio": 0.5 },
+
+  "timing": {
+    "waitBeforeCueMs": 5000,
+    "afterCueTimeoutMs": 15000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "raise_correct", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Con gì đây?",
+    "praise": "Đúng rồi, {label}! Hoan hô con!",
+    "bridge": "Cầm tranh ngang tầm mắt bé, chỉ vào tranh và hỏi \"Con gì đây?\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Cầm thẻ giấy in {label} ngang tầm mắt bé, chỉ tay vào tranh và hỏi: \"{instruction}\". Đợi 3–5 giây rồi mới mớm lời." },
+      "3": { "guide": "Đưa đồ chơi {label} cho bé cầm, hỏi \"Con gì đây?\" và chờ bé gọi tên." },
+      "4": { "guide": "Khi thấy {label} thật hoặc trong sách, hỏi \"{instruction}\" để bé tự gọi tên." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "timing.waitBeforeCueMs", "params.modelRepeats", "params.promptStyle"]
+  }
+}

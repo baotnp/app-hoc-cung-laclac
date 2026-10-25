@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.cog01.choose_pet_animal",
+  "code": "COG-01",
+  "type": "choose_from_two",
+  "title": "Chọn 1 trong 2 hình con vật nuôi",
+  "group": "cognition_receptive",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "pet_animal",
+    "keys": ["animal.dog", "animal.cat", "animal.cow", "animal.chicken"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "touch_choice",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "choices": 2,
+    "layout": { "minCardAreaRatio": 0.334 },
+    "positions": { "strategy": "balanced_shuffle", "maxSameSideRun": 3 },
+    "distractor": { "strategy": "random_other_in_pool", "avoidRepeatLast": 1 }
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 5000,
+    "afterCueTimeoutMs": 15000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "raise_correct", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Chỉ vào {label}",
+    "praise": "Hoan hô, đúng là {label} rồi!",
+    "bridge": "Đưa 2 thẻ giấy in hình con vật (một là {label}) và hỏi \"Chỉ vào {label}\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa 2 thẻ giấy in hình con vật (một là {label}). Giới thiệu trước \"Đây là con mèo, đây là con chó\" rồi dùng đúng câu lệnh của cô: \"{instruction}\". Thử khoảng 5 lần, đảo vị trí các con vật." },
+      "3": { "guide": "Đặt 2 đồ chơi/mô hình con vật (một là {label}). Chỉ vào từng con và gọi tên, rồi yêu cầu \"Lấy cho ba mẹ con {label}\". Nếu bé chưa phản ứng, cầm bàn tay con hướng dẫn rồi giảm dần hỗ trợ." },
+      "4": { "guide": "Khi thấy {label} trong sách, tranh, video hoặc ngoài đường, hỏi bé: \"{instruction}\"." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "scheduling.trialsPerRound", "positions.strategy"]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.lan03.ask_help_a",
+  "code": "LAN-03",
+  "type": "coach_demo",
+  "title": "Nhờ sự giúp đỡ bằng cử chỉ hoặc \"ạ\"",
+  "group": "language_expressive",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.box", "object.ball"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "bin",
+    "mascotCue": "none",
+    "parentSteps": [
+      { "label": "Chờ một lúc và không nói gì", "detail": "Đặt đồ chơi con thích trong hộp có nắp vặn chặt, đưa cho con; khi con không mở được thì đưa tay ra gần chờ con đưa hộp, hoặc yêu cầu con nói \"ạ!\"." },
+      { "label": "\"ạ!\" — sau 3–5 giây", "detail": "Nếu con đưa hộp hoặc nói \"ạ\" thì lập tức mở hộp giúp và khen. Nếu chưa, cầm tay con đặt lên miệng mẹ và nói \"ạ\" để con quan sát." },
+      { "label": "Chỉ mở khẩu hình chữ \"ạ\"", "detail": "Dần giảm hỗ trợ, tiếp tục luyện tập." }
+    ],
+    "showStepTimerMs": 5000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 5000,
+    "afterCueTimeoutMs": 15000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Ạ!",
+    "praise": "Hoan hô, con biết nhờ ba mẹ rồi!",
+    "bridge": "Bỏ đồ chơi bé thích vào hộp vặn chặt, chờ bé đưa hộp nhờ mở hoặc nói \"ạ\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình {label} kèm hình bàn tay đưa ra, ba mẹ làm mẫu rồi nói \"{instruction}\"." },
+      "3": { "guide": "Bỏ {label} vào hộp có nắp vặn chặt, đưa cho bé và chờ bé đưa hộp lại hoặc nói \"ạ!\"." },
+      "4": { "guide": "Khi bé gặp khó trong sinh hoạt (mở hộp sữa, cởi dép), chờ bé nhờ giúp bằng cử chỉ hoặc \"ạ\" rồi mới giúp." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "timing.waitBeforeCueMs", "params.parentSteps"]
+  }
+}

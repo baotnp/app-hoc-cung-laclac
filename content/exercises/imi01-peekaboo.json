@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.imi01.peekaboo",
+  "code": "IMI-01",
+  "type": "peekaboo",
+  "title": "Bắt chước chơi ú òa",
+  "group": "imitation",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "pet_animal",
+    "keys": ["animal.dog", "animal.cat", "animal.cow", "animal.chicken"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "touch_choice",
+    "acceptOn": "pointerup",
+    "maxMovePx": 32,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 32
+  },
+
+  "params": { "cover": "cloth", "revealMs": 450, "repeatInvite": true },
+
+  "timing": {
+    "waitBeforeCueMs": 5000,
+    "afterCueTimeoutMs": 15000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "raise_correct", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Hôm nay chúng ta cùng nhau bắt chước chơi ú òa nhé!",
+    "praise": "Ú òa! Hoan hô con!",
+    "bridge": "Lấy khăn trùm lên đầu, mở ra và nói \"ú òa\" cùng bé."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Lấy tấm bìa che ảnh {label} rồi mở ra, nói \"ú òa\". Mở đầu bằng: \"{instruction}\"." },
+      "3": { "guide": "Phủ khăn thật lên đầu ba mẹ (hoặc lên đồ chơi {label}) rồi mở khăn ra và nói \"ú òa\". Vài lần đầu có thể cầm tay bé kéo khăn, sau giảm dần." },
+      "4": { "guide": "Để bé chủ động rủ chơi ú òa với ba mẹ, anh chị hoặc người quen trong lúc sinh hoạt." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.cover"]
+  }
+}

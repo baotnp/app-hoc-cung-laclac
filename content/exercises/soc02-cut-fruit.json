@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.soc02.cut_fruit",
+  "code": "SOC-02",
+  "type": "coach_demo",
+  "title": "Cắt trái cây mô hình cùng ba mẹ",
+  "group": "social",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "fruit",
+    "keys": ["fruit.apple", "fruit.banana"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "fruit",
+    "mascotCue": "clap",
+    "parentSteps": [
+      { "label": "\"Cắt, wow, ngon quá\"", "detail": "Đưa bộ đồ chơi cắt trái cây về phía trước con và làm mẫu cắt." },
+      { "label": "\"Cắt\" — cầm tay con cắt cùng", "detail": "Một tay giữ trái cây trên thớt, một tay cầm dao; dần thả lỏng tay, có thể luân phiên lượt." },
+      { "label": "Để con chủ động cắt cùng ba mẹ", "detail": "Con tự cầm dao cắt, ba mẹ chỉ giữ trái cây." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Cắt, wow, ngon quá",
+    "praise": "Hoan hô, con cắt được rồi!",
+    "bridge": "Lấy bộ đồ chơi cắt trái cây, cầm tay bé cắt và nói \"Cắt\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình {label} đã cắt đôi, ba mẹ nói \"{instruction}\" rồi ghép lại." },
+      "3": { "guide": "Dùng bộ trái cây velcro/gỗ: đặt {label} lên thớt, một tay giữ, một tay cầm dao nhựa cắt cùng bé." },
+      "4": { "guide": "Lúc ăn, cho bé cùng bóc hoặc đưa {label} thật cho ba mẹ." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "praise", "params.parentSteps"]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.cog02.simple_requests",
+  "code": "COG-02",
+  "type": "coach_demo",
+  "title": "Nhận biết yêu cầu đơn giản",
+  "group": "cognition_receptive",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "other",
+    "keys": ["action.sit_down", "action.stand_up", "action.throw_trash"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "bin",
+    "mascotCue": "none",
+    "parentSteps": [
+      { "label": "\"Ngồi xuống\" · \"Đứng lên\"", "detail": "Đưa yêu cầu chậm và to, rõ, rồi làm mẫu động tác cho con quan sát." },
+      { "label": "Cầm tay con làm theo", "detail": "Đến lượt con, cầm tay hướng dẫn. Lặp lại 2–3 lần." },
+      { "label": "Đưa yêu cầu rồi chờ", "detail": "Chờ con làm theo, giảm hỗ trợ dần." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "{label}",
+    "praise": "Hoan hô, con làm đúng rồi!",
+    "bridge": "Trong sinh hoạt hằng ngày, nói chậm và to: \"Ngồi xuống\", \"Đứng lên\", \"Hãy bỏ rác\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình hành động {label} rồi đưa yêu cầu: \"{instruction}\"." },
+      "3": { "guide": "Làm {label} với ghế hoặc thùng rác thật, trẻ đứng bên cạnh ba mẹ." },
+      "4": { "guide": "Dùng \"{instruction}\" trong sinh hoạt hằng ngày (lúc ăn, lúc dọn đồ) và chờ bé làm theo." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.gro01.crawl_tunnel",
+  "code": "GRO-01",
+  "type": "coach_demo",
+  "title": "Chui qua đường hầm",
+  "group": "gross_motor",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.tunnel", "object.ball"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "tunnel",
+    "mascotCue": "crawl",
+    "parentSteps": [
+      { "label": "\"Mẹ bò nè, trẻ nhìn nha\"", "detail": "Dùng 2 khuỷu tay và 2 đầu gối, bò chậm qua đường hầm, vừa làm vừa hướng dẫn con hạ thấp người xuống." },
+      { "label": "\"Trẻ bò nè!\"", "detail": "Tập bò bên ngoài đường hầm trước rồi mới bò qua; ba mẹ đứng ở điểm đến cổ vũ hoặc cầm đồ chơi dụ con." },
+      { "label": "\"Giỏi lắm, trẻ bò theo mẹ nhé\"", "detail": "Mẹ cổ vũ, con tự bò qua. Khoảng cách đường hầm ngắn trước, tăng dần." }
+    ],
+    "showStepTimerMs": 10000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 10000,
+    "afterCueTimeoutMs": 30000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Mẹ bò nè, con nhìn nha",
+    "praise": "Hay quá! Hoan hô con!",
+    "bridge": "Kê ghế phủ chăn làm đường hầm, bò mẫu rồi cổ vũ bé bò qua."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình {label} và nói \"{instruction}\" trước khi chui." },
+      "3": { "guide": "Dựng hầm thật bằng đường hầm mua sẵn hoặc kê ghế phủ chăn mỏng; ba mẹ đứng ở điểm đến cổ vũ, có thể cầm {label} dụ bé." },
+      "4": { "guide": "Cho bé chui qua đồ ở sân chơi hoặc gầm bàn trong nhà khi chơi tự nhiên." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "praise", "params.parentSteps"]
+  }
+}

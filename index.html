@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Lạc Lạc" />
+    <meta name="theme-color" content="#EDE9DF" />
+    <!-- Nền và màu chữ đặt thẳng ở đây, không chờ CSS của app: nếu gói JS/CSS không
+         nạp được thì iPad ở chế độ tối hiện màn ĐEN trơn, ba mẹ không biết vì sao. -->
+    <style>
+      :root { color-scheme: light; }
+      html, body { height: 100%; margin: 0; background: #ede9df; color: #2a2723; }
+      #boot {
+        position: fixed; inset: 0; display: none; place-content: center; padding: 24px;
+        font: 16px/1.5 -apple-system, system-ui, sans-serif; text-align: center;
+      }
+      #boot code { display: block; margin-top: 12px; font-size: 13px; color: #5e574d; word-break: break-word; }
+    </style>
+    <link rel="apple-touch-icon" href="/icons/icon-180.svg" />
+    <title>Học cùng Lạc Lạc</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Hiện khi app không khởi động được; lý do do `main.tsx` điền vào. -->
+    <div id="boot">
+      <div>
+        <strong>App chưa mở được trên máy này.</strong>
+        <code id="boot-why"></code>
+      </div>
+    </div>
+    <script>
+      // Bẫy lỗi sớm nhất có thể: nếu gói chính không chạy được (cú pháp iPad chưa hỗ trợ,
+      // tải thiếu file), ba mẹ vẫn đọc được lý do thay vì nhìn màn đen.
+      window.addEventListener('error', function (e) {
+        var why = document.getElementById('boot-why')
+        if (!why || why.textContent) return
+        why.textContent = (e.message || 'Lỗi không rõ') + ' — ' + (e.filename || '').split('/').pop()
+        document.getElementById('boot').style.display = 'grid'
+      })
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

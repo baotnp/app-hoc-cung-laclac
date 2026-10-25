@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.soc01.ball_blocks",
+  "code": "SOC-01",
+  "type": "coach_demo",
+  "title": "Chơi tương tác: chuyền bóng, xếp khối",
+  "group": "social",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.ball", "object.block"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "ball",
+    "mascotCue": "clap",
+    "parentSteps": [
+      { "label": "\"1 2 3 - Đẩy\"", "detail": "Ngồi đối diện con, làm mẫu đẩy bóng qua lại, có thể đếm \"1 2 3 - Đẩy\"." },
+      { "label": "\"Lạc ơi, đẩy bóng qua cho ba mẹ\"", "detail": "Gọi tên con và đứng tư thế dang tay để ra hiệu đã sẵn sàng nhận bóng." },
+      { "label": "Để con chủ động đẩy bóng", "detail": "Lặp lại đến khi con tự đẩy qua lại; nếu con chưa tự ngồi thì cần một người hỗ trợ." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "1 2 3 - Đẩy",
+    "praise": "Hoan hô, con đẩy giỏi quá!",
+    "bridge": "Ngồi đối diện bé, đẩy bóng qua lại và đếm \"1 2 3 - Đẩy\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình {label} và nói \"{instruction}\" để bé hiểu sắp tới lượt chuyền." },
+      "3": { "guide": "Ngồi đối diện bé trên sàn, chuyền {label} thật qua lại, đếm \"1 2 3 - Đẩy\"." },
+      "4": { "guide": "Cho bé chơi chuyền {label} với anh chị hoặc bạn, ba mẹ chỉ nhắc nhịp lượt." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

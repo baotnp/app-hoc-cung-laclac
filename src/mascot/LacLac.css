@@ -1,0 +1,17 @@
+/* Linh vật Lạc Lạc — docs/04 §7. Không chữ, không font ngoài. */
+
+.laclac {
+  display: block;
+  position: relative;
+  /* Lớp trang trí: không nhận chạm, không chọn được, không kéo được. */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  line-height: 0;
+}
+
+.laclac__svg {
+  display: block;
+  overflow: visible;
+}

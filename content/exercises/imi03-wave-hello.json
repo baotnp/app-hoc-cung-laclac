@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.imi03.wave_hello",
+  "code": "IMI-03",
+  "type": "coach_demo",
+  "title": "Bắt chước vẫy tay chào hoặc tạm biệt",
+  "group": "imitation",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "other",
+    "keys": ["gesture.hello", "gesture.goodbye"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "hand",
+    "mascotCue": "wave",
+    "parentSteps": [
+      { "label": "Giơ tay, xòe bàn tay rồi vẫy chào", "detail": "Chú ý để con nhìn vào tay ba mẹ khi chào." },
+      { "label": "Tận dụng lúc gặp người, ra khỏi nhà", "detail": "Đó là cơ hội để con bắt chước; nếu cần thì đỡ tay con vẫy cùng." },
+      { "label": "Để con tự vẫy chào hoặc tạm biệt", "detail": "Con chủ động bắt chước đúng tình huống." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Hôm nay con bắt chước ba mẹ vẫy tay chào hoặc tạm biệt nhé!",
+    "praise": "Hoan hô, con chào giỏi quá!",
+    "bridge": "Khi gặp bé hoặc ra khỏi nhà, giơ tay xòe ra và vẫy chào để bé bắt chước."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình người đang {label}, ba mẹ vẫy theo thẻ và nói: \"{instruction}\"." },
+      "3": { "guide": "Vẫy {label} với búp bê, thú bông rồi với ba mẹ; giơ tay lên, xòe bàn tay rồi vẫy." },
+      "4": { "guide": "Khi có người đến hoặc ra khỏi nhà, nhắc bé vẫy {label} đúng tình huống." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

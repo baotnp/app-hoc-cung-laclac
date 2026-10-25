@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.imi02.hand_movements",
+  "code": "IMI-02",
+  "type": "coach_demo",
+  "title": "Bắt chước các cử động của bàn tay",
+  "group": "imitation",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "other",
+    "keys": ["gesture.shake_hand", "gesture.wave_hand", "gesture.fold_hand"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "hand",
+    "mascotCue": "wave",
+    "parentSteps": [
+      { "label": "\"bây giờ con làm giống ba/mẹ nhé\"", "detail": "Ngồi đối diện, lắc bàn tay và giữ nguyên tư thế mẫu cho con bắt chước." },
+      { "label": "Cầm tay con làm cùng", "detail": "Nếu con khó làm theo, cầm tay con hỗ trợ thực hiện động tác." },
+      { "label": "Đổi sang vẫy tay, gập tay", "detail": "Lặp lại với các động tác khác, giảm dần hỗ trợ để con tự làm." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Bây giờ con làm giống ba mẹ nhé",
+    "praise": "Hoan hô, con làm được rồi!",
+    "bridge": "Lắc bàn tay, vẫy tay, gập tay — mỗi lần một động tác cho bé bắt chước."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ ảnh bàn tay đang {label}, ba mẹ làm theo thẻ rồi nói: \"{instruction}\"." },
+      "3": { "guide": "Ngồi đối diện, ba mẹ làm {label} bằng tay thật và giữ nguyên tư thế mẫu cho bé bắt chước." },
+      "4": { "guide": "Lồng {label} vào bài hát, trò chơi hoặc lúc sinh hoạt để bé bắt chước tự nhiên." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

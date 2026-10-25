@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.fin01.pick_beads",
+  "code": "FIN-01",
+  "type": "coach_demo",
+  "title": "Tập nhặt hạt màu tự do",
+  "group": "fine_motor",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.bead", "object.box"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "bead",
+    "mascotCue": "none",
+    "parentSteps": [
+      { "label": "\"Nhặt hạt\"", "detail": "Làm mẫu nhặt hạt bỏ vào hộp nhựa, chậm 2–3 lần, kèm hiệu lệnh \"Nhặt hạt\"." },
+      { "label": "Cầm tay con nhặt hạt", "detail": "Cầm tay hướng dẫn con nhặt hạt cho vào hộp nhựa." },
+      { "label": "Thả tay cho con tự nhặt", "detail": "Giảm dần hỗ trợ, thả tay khi con tự thực hiện được." }
+    ],
+    "showStepTimerMs": 8000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 20000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Nhặt hạt",
+    "praise": "Hoan hô, con nhặt giỏi quá!",
+    "bridge": "Đổ hạt màu ra, để hộp nhựa bên cạnh và nói \"Nhặt hạt\"."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "In khay có các vòng tròn, bé đặt {label} vào từng vòng; ba mẹ nói \"{instruction}\"." },
+      "3": { "guide": "Rải hạt thật đủ lớn trên sàn, để {label} bên cạnh, bé nhặt hạt bỏ vào hộp nhựa (ba mẹ luôn ngồi cạnh để tránh hóc)." },
+      "4": { "guide": "Lúc dọn đồ chơi, nhờ bé nhặt đồ nhỏ bỏ vào {label}." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.parentSteps"]
+  }
+}

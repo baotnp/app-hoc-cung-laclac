@@ -1,0 +1,115 @@
+/* Màn tiệc — docs/03 §5, docs/04 §2–3.
+   Không nhấp nháy > 2 lần/giây, không đỏ chói toàn màn, không rung màn hình. */
+
+.party {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Nền: chuyển mềm 500 ms sang tông rộn ràng rồi về lại tông yên tĩnh.
+   Độ sáng đổi chậm hơn 10%/giây (không chớp màn). */
+.party__bg {
+  position: absolute;
+  inset: 0;
+  background: var(--bg, #ede9df);
+  transition: background-color 500ms var(--ease-calm, ease);
+}
+
+.party__bg[data-festive='true'] {
+  background: var(--bg-a, #fff3d9);
+}
+
+.party__layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Bong bóng bay lên, mỗi hạt một chu kỳ riêng → không có nhịp nháy chung. */
+.party__bubble {
+  position: absolute;
+  bottom: -12%;
+  border-radius: 50%;
+  animation-name: party-rise;
+  animation-timing-function: var(--ease-calm, ease-out);
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+.party__confetti {
+  position: absolute;
+  top: -10%;
+  border-radius: 3px;
+  animation-name: party-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+@keyframes party-rise {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  to {
+    transform: translate3d(var(--drift, 0px), -112vh, 0) scale(1);
+  }
+}
+
+@keyframes party-fall {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(var(--drift, 0px), 112vh, 0) rotate(180deg);
+  }
+}
+
+.party__animals {
+  position: absolute;
+  inset: 0;
+}
+
+.party__animal {
+  position: absolute;
+  bottom: 16%;
+  left: 0;
+  width: 26vh;
+  height: 26vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.party__animal-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.party__animal-dot {
+  display: block;
+  width: 18vh;
+  height: 18vh;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.party__mascot {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  transform: translateX(-50%);
+}
+
+/* Tắt chuyển động: khung tĩnh chuyển mờ, con vật đứng yên thành hàng. */
+.party[data-reduced='true'] .party__animal {
+  bottom: 18%;
+  width: 22vh;
+  height: 22vh;
+}

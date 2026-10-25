@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-ssr/
+dev-dist/
+.DS_Store
+*.local
+*.log
+
+# Nội dung của gia đình: ảnh và giọng của bé. KHÔNG BAO GIỜ commit (docs/05 §5).
+local-content/

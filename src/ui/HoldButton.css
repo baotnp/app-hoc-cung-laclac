@@ -1,0 +1,99 @@
+/* Nút nhấn giữ — docs/04 §5. Cổng ba mẹ 120×120 px, vòng tiến trình mờ. */
+
+.hold-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  min-height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  border-radius: var(--radius-card, 28px);
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.hold-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.hold-button__content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1, 8px);
+  padding: 0 var(--space-2, 16px);
+}
+
+.hold-button__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: rotate(-90deg);
+  transition: opacity 200ms var(--ease-calm, ease);
+  pointer-events: none;
+}
+
+.hold-button__ring[data-visible='true'] {
+  opacity: 1;
+}
+
+.hold-button__track {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  opacity: 0.16;
+}
+
+.hold-button__fill {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+/* Cổng ba mẹ trên màn của bé: 120×120 px, không hình ảnh, nét dịu. */
+.hold-button.parent-gate {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + var(--space-1, 8px));
+  left: calc(env(safe-area-inset-left, 0px) + var(--space-1, 8px));
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
+  color: var(--ink-child, #3a352e);
+  z-index: 20;
+}
+
+/* Thanh xác nhận của ba mẹ trong buổi: 64×64 px tối thiểu. */
+.hold-button.parent-confirm {
+  min-width: 64px;
+  min-height: 64px;
+  background: var(--p-surface, #fff);
+  border: 1px solid var(--p-border, #ddd6c8);
+  color: var(--p-ink, #2a2723);
+  border-radius: var(--radius-chip, 14px);
+}
+
+/* Thao tác xóa dữ liệu: giữ 1,5 giây; dùng tông nhắc nhở trung tính, không đỏ. */
+.hold-button.parent-danger {
+  min-width: 56px;
+  min-height: 56px;
+  background: var(--p-surface, #fff);
+  border: 1px solid var(--p-warn, #8a6a00);
+  color: var(--p-warn, #8a6a00);
+  border-radius: var(--radius-chip, 14px);
+}

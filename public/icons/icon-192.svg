@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="192" height="192" role="img" aria-label="Lạc Lạc">
+  <rect width="512" height="512" rx="96" fill="#EDE9DF"/>
+  <g transform="translate(256 268) scale(1.5) translate(-100 -140)">
+    <path d="M100 18c24 0 42 17 42 38 0 11-5 20-12 27 11 9 18 23 18 38 0 27-21 47-48 47s-48-20-48-47c0-15 7-29 18-38-7-7-12-16-12-27 0-21 18-38 42-38z" fill="#E4CCA6" stroke="#CFAE7C" stroke-width="4"/>
+    <ellipse cx="85" cy="52" rx="6" ry="9" fill="#3A352E"/>
+    <ellipse cx="115" cy="52" rx="6" ry="9" fill="#3A352E"/>
+    <circle cx="87" cy="49" r="2" fill="#fff"/>
+    <circle cx="117" cy="49" r="2" fill="#fff"/>
+    <path d="M92 66q8 7 16 0" stroke="#3A352E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="74" cy="62" r="6" fill="#E6B8A8" opacity="0.75"/>
+    <circle cx="126" cy="62" r="6" fill="#E6B8A8" opacity="0.75"/>
+    <rect x="80" y="166" width="16" height="18" rx="8" fill="#6FA8A0"/>
+    <rect x="104" y="166" width="16" height="18" rx="8" fill="#6FA8A0"/>
+  </g>
+</svg>

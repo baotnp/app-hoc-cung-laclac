@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.fin03.sequence_cards",
+  "code": "FIN-03",
+  "type": "sequence_cards",
+  "title": "Xếp thẻ tranh thành hàng",
+  "group": "fine_motor",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "pet_animal",
+    "keys": ["animal.dog", "animal.cat", "animal.cow", "animal.chicken"],
+    "minItems": 3
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "touch_drag",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 32
+  },
+
+  "params": { "cardCount": 3, "slots": "row", "snapPx": 60, "startLayout": "scattered" },
+
+  "timing": {
+    "waitBeforeCueMs": 8000,
+    "afterCueTimeoutMs": 24000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "raise_correct", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Xếp vào, xếp vào, xếp vào",
+    "praise": "Hoan hô, con xếp thành hàng rồi!",
+    "bridge": "Đưa bé vài thẻ tranh thật, xếp thành một hàng ngang trên bàn."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa 3 thẻ giấy (có thẻ {label}), ba mẹ xếp mẫu thành hàng dài rồi nói: \"{instruction}\", vừa làm vừa nói \"xếp vào, xếp vào, xếp vào\"." },
+      "3": { "guide": "Xếp đồ vật thật (xe, khối gỗ, cả đồ chơi {label}) thành một hàng ngang; cầm tay bé hướng dẫn rồi thả dần." },
+      "4": { "guide": "Lúc dọn dẹp, nhờ bé xếp giày dép hoặc đồ chơi thành hàng ngang." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "params.slots"]
+  }
+}

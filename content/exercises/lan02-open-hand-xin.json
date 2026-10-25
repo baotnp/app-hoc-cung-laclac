@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.lan02.open_hand_xin",
+  "code": "LAN-02",
+  "type": "coach_demo",
+  "title": "Xòe tay và kết hợp nói \"xin\"",
+  "group": "language_expressive",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.hand", "object.ball"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "hand",
+    "mascotCue": "none",
+    "parentSteps": [
+      { "label": "\"xin…\"", "detail": "Làm mẫu xòe tay ra và nói \"xin…\", kèm lời \"con muốn lấy đồ chơi thì con phải xòe tay ra và nói xin…\"." },
+      { "label": "\"xin…xin…xin…\"", "detail": "Cầm tay con xòe ra và mớm lời, đặt tay lên môi con để gợi ý. Đợi 3–5 giây rồi mới cầm tay con chỉ vào môi ba mẹ." },
+      { "label": "\"con xin mẹ đi\"", "detail": "Chỉ đưa yêu cầu để con tự thực hiện." }
+    ],
+    "showStepTimerMs": 5000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 5000,
+    "afterCueTimeoutMs": 15000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": true,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Xin… xin… xin…",
+    "praise": "Hoan hô, con biết xin rồi!",
+    "bridge": "Khi bé muốn lấy đồ chơi, chờ bé xòe tay và nói \"xin\" rồi mới đưa."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình bàn tay xòe cùng ảnh {label}, ba mẹ làm mẫu rồi nói \"{instruction}\"." },
+      "3": { "guide": "Cầm {label} trong tay, chờ bé xòe tay và nói \"xin…\" mới đưa; đợi 3–5 giây trước khi mớm lời." },
+      "4": { "guide": "Trong bữa ăn hoặc lúc chơi, chờ bé xin {label} bằng xòe tay và \"xin\" rồi mới đưa." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "timing.waitBeforeCueMs", "params.parentSteps"]
+  }
+}

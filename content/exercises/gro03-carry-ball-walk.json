@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "ex.gro03.carry_ball_walk",
+  "code": "GRO-03",
+  "type": "coach_demo",
+  "title": "Hai tay cầm quả bóng và bước đi",
+  "group": "gross_motor",
+  "phase": 1,
+  "configVersion": 1,
+
+  "itemPool": {
+    "category": "daily_object",
+    "keys": ["object.ball", "object.block"],
+    "minItems": 2
+  },
+  "requiredAudio": ["instruction", "praise", "bridge"],
+
+  "response": {
+    "detector": "parent_confirm",
+    "acceptOn": "pointerup",
+    "maxMovePx": 24,
+    "ignoreFirstMs": 150,
+    "hitSlopPx": 24
+  },
+
+  "params": {
+    "activity": "ball",
+    "mascotCue": "walk",
+    "parentSteps": [
+      { "label": "\"Mẹ làm mẫu, cầm bóng đi chậm\"", "detail": "Đứng thẳng tự nhiên, 2 tay cầm bóng, bước đi chậm đến vạch vẽ sẵn, 2–3 lần." },
+      { "label": "\"Cầm bóng, đi nào\"", "detail": "Đưa bóng cho con, yêu cầu cầm bằng 2 tay và đi về phía trước; nếu khó thì cầm tay con giữ bóng và bước đi cùng." },
+      { "label": "\"Hoan hô, con làm được rồi!\"", "detail": "Thả dần tay để con tự cầm bóng và bước đến vạch đích." }
+    ],
+    "showStepTimerMs": 10000
+  },
+
+  "timing": {
+    "waitBeforeCueMs": 10000,
+    "afterCueTimeoutMs": 30000,
+    "rewardMaxMs": 1200,
+    "cue": { "kind": "mascot_point", "repeatInstruction": true }
+  },
+
+  "scheduling": { "trialsPerRound": 5, "newItemRatio": 0.3, "knownMinTrials": 3, "firstTrialKnownItem": true },
+
+  "mastery": {
+    "metric": "independent_correct_rate",
+    "threshold": 0.8,
+    "lastSessions": 5,
+    "minTrials": 6
+  },
+
+  "reward": {
+    "perTrial": ["mascot_nod", "praise_audio", "star_ting"],
+    "echoWord": false,
+    "onRoundComplete": "party_standard",
+    "party": { "showAnimals": "from_round_items", "max": 3 }
+  },
+
+  "spoken": {
+    "instruction": "Cầm bóng, đi nào",
+    "praise": "Hoan hô, con làm được rồi!",
+    "bridge": "Đưa bé quả bóng, yêu cầu cầm bằng 2 tay và bước đến vạch đích."
+  },
+
+
+  "bridge": {
+    "target": "newest_or_ready_item",
+    "promptAudioRole": "bridge",
+    "levels": {
+      "2": { "guide": "Đưa thẻ hình bé ôm {label} bước đi, ba mẹ nói \"{instruction}\"." },
+      "3": { "guide": "Đưa {label} nhẹ vừa hai tay cho bé, yêu cầu cầm bằng 2 tay và bước đến vạch đích." },
+      "4": { "guide": "Nhờ bé bê đồ bằng hai tay (hộp, gối) trong sinh hoạt hằng ngày." }
+    }
+  },
+
+  "sensory": { "noWrongSound": true, "noText": true },
+
+  "confirm": {
+    "status": "confirmed",
+    "by": "tài liệu bài tập của trung tâm",
+    "date": "2026-10-25",
+    "fields": ["instruction", "praise", "params.parentSteps"]
+  }
+}

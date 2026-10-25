@@ -134,7 +134,13 @@ export interface MediaAsset extends BaseRecord {
   kind: "image" | "audio" | "model3d";
   mime: string;
   bytes: number;
+  /**
+   * Nội dung thật. Đọc qua `repos.getMedia`/`mediaBlob` luôn cho Blob; trong IndexedDB
+   * có thể là `ArrayBuffer` khi Safari từ chối lưu Blob (xem `storedAs`).
+   */
   blob: Blob;
+  /** Có mặt khi bản ghi phải lưu dạng `ArrayBuffer` thay vì Blob. */
+  storedAs?: "arraybuffer";
   width?: number;
   height?: number;
   hasAlpha?: boolean;

@@ -193,6 +193,40 @@ describe('repo cơ bản', () => {
     expect(removed.transcripts?.instruction).toEqual([])
   })
 
+  it('Safari từ chối Blob thì vẫn lưu và đọc lại được media', async () => {
+    // Đo được trên WebKit: ở một số chế độ lưu trữ, IndexedDB ném
+    // "Error preparing Blob/File data". Trước đây gói khởi đầu dừng giữa chừng và
+    // bé không có ảnh nào để chơi, mà không có lỗi nào hiện ra.
+    const real = db.media.put.bind(db.media)
+    let refused = 0
+    const spy = vi
+      .spyOn(db.media, 'put')
+      .mockImplementation(async (row: Parameters<typeof real>[0]) => {
+        if (row.blob instanceof Blob) {
+          refused += 1
+          throw new Error('UnknownError: Error preparing Blob/File data')
+        }
+        return real(row)
+      })
+
+    const media = await repos.putMedia({
+      kind: 'image',
+      blob: new Blob([new Uint8Array([7, 7, 7])], { type: 'image/png' }),
+      mime: 'image/png',
+      source: 'family',
+    })
+    spy.mockRestore()
+
+    expect(refused).toBe(1)
+    const stored = await db.media.get(media.id)
+    expect(stored?.storedAs).toBe('arraybuffer')
+
+    // Phần còn lại của app chỉ nhìn thấy Blob, không cần biết chuyện này.
+    const back = await repos.getMedia(media.id)
+    expect(back?.blob).toBeInstanceOf(Blob)
+    expect(await back?.blob.arrayBuffer()).toEqual(new Uint8Array([7, 7, 7]).buffer)
+  })
+
   it('archive ẩn mục khỏi listItems mặc định', async () => {
     const item = await repos.upsertItem({
       key: 'object.hat',

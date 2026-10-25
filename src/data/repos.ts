@@ -174,12 +174,37 @@ export async function putMedia(input: {
     source: input.source,
     assetRef: input.assetRef,
   })
-  await db.media.put(media)
+  await writeMediaAsset(media)
   return media
 }
 
+/**
+ * Ghi media, có đường lui khi Safari từ chối Blob.
+ *
+ * Đo được trên WebKit: ở một số chế độ lưu trữ (duyệt riêng tư, bộ nhớ bị hạn chế),
+ * `IndexedDB.put` với Blob ném `UnknownError: Error preparing Blob/File data`. Khi đó
+ * gói khởi đầu dừng giữa chừng và app không có ảnh nào — bé không chơi được gì mà
+ * không ai biết vì sao. Lưu bằng `ArrayBuffer` luôn chạy, chỉ tốn một lần sao chép.
+ */
+export async function writeMediaAsset(media: MediaAsset): Promise<void> {
+  try {
+    await db.media.put(media)
+  } catch {
+    const buffer = await media.blob.arrayBuffer()
+    await db.media.put({ ...media, blob: buffer as unknown as Blob, storedAs: 'arraybuffer' })
+  }
+}
+
+/** Dựng lại Blob cho bản ghi đã phải lưu dạng ArrayBuffer. */
+export function mediaBlob(media: MediaAsset): Blob {
+  if (media.blob instanceof Blob) return media.blob
+  return new Blob([media.blob as unknown as ArrayBuffer], { type: media.mime })
+}
+
 export async function getMedia(id: string): Promise<MediaAsset | undefined> {
-  return db.media.get(id)
+  const media = await db.media.get(id)
+  if (!media) return undefined
+  return media.blob instanceof Blob ? media : { ...media, blob: mediaBlob(media) }
 }
 
 const objectUrlCache = new Map<string, string>()
@@ -191,7 +216,7 @@ export async function getMediaObjectUrl(id: string): Promise<string | undefined>
   const media = await db.media.get(id)
   if (!media) return undefined
   if (typeof URL.createObjectURL !== 'function') return undefined
-  const url = URL.createObjectURL(media.blob)
+  const url = URL.createObjectURL(mediaBlob(media))
   objectUrlCache.set(id, url)
   return url
 }

@@ -6,7 +6,7 @@ import { unzipSync, zipSync } from 'fflate'
 import { ulid } from 'ulid'
 import { APP_VERSION, DB_SCHEMA_VERSION, TABLE_NAMES, db } from '@/data/db'
 import type { TableName } from '@/data/db'
-import { getMeta, revokeMediaObjectUrls, setMeta } from '@/data/repos'
+import { getMeta, mediaBlob, revokeMediaObjectUrls, setMeta } from '@/data/repos'
 import type { EpochMs } from '@/data/types'
 import { formatClockVi, localDate } from '@/lib/time'
 
@@ -127,11 +127,11 @@ export async function exportBackup(opts: ExportOptions = {}): Promise<Blob> {
     if (name === 'media') {
       const assets = includeMedia ? await db.media.toArray() : []
       rows = assets.map((a) => {
-        const { blob: _blob, ...meta } = a
+        const { blob: _blob, storedAs: _storedAs, ...meta } = a
         return meta
       })
       for (const asset of assets) {
-        const bytes = new Uint8Array(await asset.blob.arrayBuffer())
+        const bytes = new Uint8Array(await mediaBlob(asset).arrayBuffer())
         const ext = MEDIA_EXT[asset.mime] ?? 'bin'
         const path = `media/${asset.id}.${ext}`
         files[path] = bytes

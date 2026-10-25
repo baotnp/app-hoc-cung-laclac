@@ -9,6 +9,7 @@ import {
   getMeta,
   setMeta,
   updateChildSettings,
+  writeMediaAsset,
 } from "@/data/repos";
 import type {
   AudioRole,
@@ -466,7 +467,7 @@ async function fetchBundledMedia(
       },
       now,
     );
-    await db.media.put(media);
+    await writeMediaAsset(media);
     return media;
   } catch {
     // Không tải được (ví dụ mất mạng ở lần chạy đầu): bỏ qua, lần sau thử lại.

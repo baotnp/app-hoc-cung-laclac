@@ -5,7 +5,7 @@ import { db } from '@/data/db'
 import * as repos from '@/data/repos'
 import { exportBackup, importBackup } from '@/data/backup'
 import { DEFAULT_CHILD, ensureStarterPack } from '@/data/starter'
-import type { Child, FarmItem } from '@/data/types'
+import type { Child, FarmItem, MediaAsset } from '@/data/types'
 
 let child: Child
 
@@ -199,15 +199,13 @@ describe('repo cơ bản', () => {
     // bé không có ảnh nào để chơi, mà không có lỗi nào hiện ra.
     const real = db.media.put.bind(db.media)
     let refused = 0
-    const spy = vi
-      .spyOn(db.media, 'put')
-      .mockImplementation(async (row: Parameters<typeof real>[0]) => {
-        if (row.blob instanceof Blob) {
-          refused += 1
-          throw new Error('UnknownError: Error preparing Blob/File data')
-        }
-        return real(row)
-      })
+    const spy = vi.spyOn(db.media, 'put').mockImplementation(((row: MediaAsset) => {
+      if (row.blob instanceof Blob) {
+        refused += 1
+        return Promise.reject(new Error('UnknownError: Error preparing Blob/File data'))
+      }
+      return real(row)
+    }) as typeof db.media.put)
 
     const media = await repos.putMedia({
       kind: 'image',
